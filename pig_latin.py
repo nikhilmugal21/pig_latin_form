@@ -261,7 +261,7 @@ def pig_latin_from_ipa(ipa_word: str) -> str:
 st.set_page_config(page_title="IPA ONC + Pig Latin", layout="centered")
 
 st.title("Pig Latin Generator (IPA-based)")
-st.write("Type an IPA word. If you include syllable breaks like `.` (e.g., `/ˈkəm.pjuː.tər/`))
+st.write("Type an IPA word. If you include syllable breaks like `.` (e.g., `/ˈkəm.pjuː.tər/`)")
 
 default = "/straɪk/"
 ipa_input = st.text_input("IPA input", value=default)
