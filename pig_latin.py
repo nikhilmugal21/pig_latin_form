@@ -258,7 +258,7 @@ def pig_latin_from_ipa(ipa_word: str) -> str:
 # 7) Streamlit UI
 # ---------------------------
 
-st.set_page_config(page_title="IPA ONC + Pig Latin", layout="centered")
+st.set_page_config(page_title="IPA Pig Latin", layout="centered")
 
 st.title("IPA Onset–Nucleus–Coda Segmenter + Pig Latin (IPA-based)")
 st.write(
@@ -269,14 +269,6 @@ st.write(
 
 default = "/straɪk/"
 ipa_input = st.text_input("IPA input", value=default)
-
-col1, col2 = st.columns(2)
-
-with col1:
-    show_tokens = st.checkbox("Show IPA tokens", value=False)
-
-with col2:
-    show_debug = st.checkbox("Show notes/assumptions", value=True)
 
 if ipa_input.strip():
     try:
@@ -296,15 +288,6 @@ if ipa_input.strip():
 
         st.markdown("**Pig Latin (IPA-based)**")
         st.code(piglatin)
-
-        if show_debug:
-            st.info(
-                "Notes:\n"
-                "- If you don't provide syllable breaks ('.' or '·'), the whole input is treated as one syllable.\n"
-                "- Nucleus detection uses a practical vowel set + syllabic diacritic '̩'.\n"
-                "- Pig Latin is computed by moving the FIRST syllable onset cluster (IPA) to the end + 'ay', "
-                "or adding 'way' if the onset is empty."
-            )
 
     except Exception as e:
         st.error(f"Error: {e}")
