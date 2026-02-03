@@ -230,8 +230,8 @@ def join_syllables_to_ipa(syllables: List[SyllableONC]) -> str:
 def pig_latin_from_ipa(ipa_word: str) -> str:
     """
     Pig Latin via IPA onset of the first syllable:
-      - if first onset is empty => vowel-initial => + 'way'
-      - else move that onset cluster to end => + 'ay'
+      - if first onset is empty => vowel-initial => + 'ei'
+      - else move that onset cluster to end => + 'ei'
     """
     sylls = segment_word_onc(ipa_word)
     if not sylls:
@@ -260,27 +260,10 @@ def pig_latin_from_ipa(ipa_word: str) -> str:
 
 st.set_page_config(page_title="IPA Pig Latin", layout="centered")
 
-st.title("IPA Onset–Nucleus–Coda Segmenter + Pig Latin (IPA-based)")
-st.write(
-    "Type an IPA word. If you include syllable breaks like `.` (e.g., `/ˈkəm.pjuː.tər/`), "
-    "the app segments each syllable separately. Consecutive vowel symbols are merged into one nucleus "
-    "(diphthongs/triphthongs), and long vowels with `ː` are treated as one segment."
-)
+st.title("Pig Latin (IPA-based)")
 
 default = "/straɪk/"
 ipa_input = st.text_input("IPA input", value=default)
-
-if ipa_input.strip():
-    try:
-        tokens = tokenize_ipa(ipa_input)
-        sylls = segment_word_onc(ipa_input)
-        piglatin = pig_latin_from_ipa(ipa_input)
-
-        st.subheader("Results")
-
-        if show_tokens:
-            st.markdown("**Tokens**")
-            st.code(" ".join(tokens))
 
 
         st.markdown("**Reconstructed IPA**")
@@ -289,7 +272,3 @@ if ipa_input.strip():
         st.markdown("**Pig Latin (IPA-based)**")
         st.code(piglatin)
 
-    except Exception as e:
-        st.error(f"Error: {e}")
-else:
-    st.warning("Enter an IPA word to begin.")
