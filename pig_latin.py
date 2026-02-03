@@ -262,26 +262,13 @@ st.set_page_config(page_title="IPA ONC + Pig Latin", layout="centered")
 
 st.title("Pig Latin Generator (IPA-based)")
 st.write(
-    "Type an IPA word. If you include syllable breaks like `.` (e.g., `/ˈkəm.pjuː.tər/`), "
-    "the app segments each syllable separately. Consecutive vowel symbols are merged into one nucleus "
-    "(diphthongs/triphthongs), and long vowels with `ː` are treated as one segment."
-)
+    "Type an IPA word. If you include syllable breaks like `.` (e.g., `/ˈkəm.pjuː.tər/`))
 
 default = "/straɪk/"
 ipa_input = st.text_input("IPA input", value=default)
 
-col1, col2 = st.columns(2)
-
-with col1:
-    show_tokens = st.checkbox("Show IPA tokens", value=False)
-
-with col2:
-    show_debug = st.checkbox("Show notes/assumptions", value=True)
-
 if ipa_input.strip():
     try:
-        tokens = tokenize_ipa(ipa_input)
-        sylls = segment_word_onc(ipa_input)
         piglatin = pig_latin_from_ipa(ipa_input)
 
         st.subheader("Results")
