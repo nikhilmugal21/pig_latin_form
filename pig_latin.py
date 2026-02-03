@@ -242,16 +242,16 @@ def pig_latin_from_ipa(ipa_word: str) -> str:
 
     # fallback if no nucleus
     if first.nucleus == "" and original:
-        return original + "ay"
+        return original + "ei"
 
     onset_cluster = first.onset
 
     if onset_cluster == "":
-        return original + "way"
+        return original + "ei"
 
     rest_first = first.nucleus + first.coda
     rest = ".".join([rest_first] + [s.onset + s.nucleus + s.coda for s in sylls[1:]])
-    return rest + onset_cluster + "ay"
+    return rest + onset_cluster + "ei"
 
 
 # ---------------------------
@@ -290,20 +290,6 @@ if ipa_input.strip():
             st.markdown("**Tokens**")
             st.code(" ".join(tokens))
 
-        # Display ONC table
-        st.markdown("**Onset / Nucleus / Coda (per syllable)**")
-        rows = []
-        for idx, s in enumerate(sylls, start=1):
-            rows.append(
-                {
-                    "Syllable #": idx,
-                    "Stress": s.stress or "",
-                    "Onset": s.onset,
-                    "Nucleus": s.nucleus,
-                    "Coda": s.coda,
-                }
-            )
-        st.table(rows)
 
         st.markdown("**Reconstructed IPA**")
         st.code(join_syllables_to_ipa(sylls))
